@@ -18,8 +18,9 @@
     
     You can of course change the pin numbers. 
     
-    The data sheet says that it is accurate to 4m. This converts to
-    23200 uS ping time, so checking for that rids us of many pings which
+    The data sheet says that it is accurate to 4m. This converts to 23200 uS ping time
+    (or 46400 uS, since the distance is half of the ping time),
+    so checking for that rids us of many pings which
     time out above 200,000.
 
 */
@@ -43,7 +44,7 @@ void loop() {
  
   duration = ping(); // get ping in uS
   
-  if (duration < 23200 ){ // check ping range (accurate up to 4m = 400cm = 23200 uS)
+  if (duration < 46400 ){ // check ping range (accurate up to 4m = 400cm = 23200 * 2 uS)
     // The speed of sound is roughly 340 m/s, which converts to about 74 uS/inch.
     // The ping travels to object and back, so duration is doubled the distance.
     distance_inch = (duration / 74.0 / 2); // convert to inch
