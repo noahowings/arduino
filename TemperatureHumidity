@@ -1,0 +1,37 @@
+/**
+   Using the DHT libarary found at https://github.com/adafruit/DHT-sensor-library
+   Author: Noah Owings
+   Date: 2/20/2013
+   
+   Uses the DHT11 temperature sensor along with the DHT library written by Adafruit Industries
+   Outputs to the the serial monitor.
+*/
+
+#include "DHT.h"
+
+#define DHTTYPE DHT11
+#define DHTPIN 6
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup(){
+  Serial.begin(9600);
+  Serial.println("starting up...");
+  delay(100);
+  dht.begin();
+}
+
+void loop(){
+  float currentTemp = dht.readTemperature(true);
+  float currentHumidity = dht.readHumidity();
+  
+  if(isnan(currentTemp) || isnan(currentHumidity))
+    Serial.println("couldn't read");
+  else {
+    Serial.print("Temp: ");
+    Serial.print(currentTemp); 
+    Serial.print(". Humidity: ");
+    Serial.println(currentHumidity); 
+  }
+  delay(500);
+}
